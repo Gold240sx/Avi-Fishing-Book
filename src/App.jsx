@@ -7,8 +7,6 @@ import { motion, AnimatePresence } from "framer-motion"
 import MusicPlayer from "./components/MusicPlayer"
 import SmoothScrollbar from "smooth-scrollbar"
 import SafariMusicPlayer from "./components/SafariMusicPlayer"
-import "react-jinke-music-player/assets/index.css"
-// import ReactJkMusicPlayer from "react-jinke-music-player"
 import TruePlayer from "./components/TruePlayer"
 
 function App() {

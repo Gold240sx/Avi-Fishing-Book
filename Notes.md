@@ -8,6 +8,7 @@
 # Features
 ### Controls
 1. Add up / down (tap per slide) hold for scroll.
+2. Realized that the Audioplayer controls wouldnt be accessible to cursor-less devices. Should add a way to control via touch. (Settings in the project options maybe and a popup-in-app modal to change on the fly.)
 
 ### Map
 1. Add a Map of the existing slides. Open Map on "M" keypress
