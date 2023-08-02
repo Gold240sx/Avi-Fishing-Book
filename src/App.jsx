@@ -34,7 +34,7 @@ function App() {
 		uiColor: "#42AEF8",
 		//  disabled slides cause controls: Either  50% opacity (50Percent) and gray or 0% opacity(hidden),
 		disabled: "hidden",
-		linearControls: true,
+		linearControls: false,
 		verticalSlides: true,
 		verticalScroll: true,
 		musicPlayer: true,

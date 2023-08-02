@@ -29,6 +29,7 @@
 * {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+  user-select: none ;
 }
 
     a {
@@ -45,11 +46,6 @@
     place-items: center;
     min-width: 320px;
     min-height: 100vh;
-    }
-
-    h1 {
-    font-size: 3.2em;
-    /* line-height: 1.1; */
     }
 
     button {
@@ -117,6 +113,11 @@
 
     .media-control-btn:hover {
         opacity: 1 !important;
+    }
+
+    .Slide {
+        min-height: 100vh !important;
+        max-height: 100vh !important;
     }
 
     @media (prefers-reduced-motion: no-preference) {
