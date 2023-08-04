@@ -144,11 +144,10 @@ const Controller = ({ linearControls, setPrev, totalSlides, disabled, verticalSl
 
 		if ((slide === 1 || slide === "1.0" || (isDecimal(slide) && Math.floor(slide) === 1)) && (delta === -1 || delta === "-v1")) {
 			if (isDecimal(slide) && Math.floor(slide) === 1) {
-				window.scrollTo({
-					top: 0,
-				})
-
 				setSlide((slide) => (parseFloat(slide) - 0.1).toFixed(1))
+				// window.scrollTo({
+				// 	top: 0,
+				// })
 			} else {
 				setSlide(1)
 				return
@@ -213,27 +212,26 @@ const Controller = ({ linearControls, setPrev, totalSlides, disabled, verticalSl
 			}
 		} else if (slide >= 1 && slide <= totalSlides) {
 			if (parseFloat(slide) + delta > totalSlides) {
-				window.scrollTo({
-					top: 0,
-				})
 				setSlide(Math.floor(totalSlides))
+				// window.scrollTo({
+				// 	top: 0,
+				// })
 				return
 			} else if (delta === 1) {
-				window.scrollTo({
-					top: 0,
-				})
-
 				setSlide(Math.floor(parseFloat(slide)) + delta)
+				// window.scrollTo({
+				// 	top: 0,
+				// })
 			} else if (delta === -1) {
-				window.scrollTo({
-					top: 0,
-				})
 				if (isDecimal(trueSlide)) {
 					setTrueSlide(Math.ceil(parseFloat(slide)) + delta + 1)
 					setSlide(Math.ceil(parseFloat(slide)) + delta + 1)
 				} else {
 					setSlide(Math.ceil(parseFloat(slide)) + delta)
 				}
+				// window.scrollTo({
+				// 	top: 0,
+				// })
 			}
 		} else {
 			// error

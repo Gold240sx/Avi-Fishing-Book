@@ -17,41 +17,93 @@ import positiveWay from "../assets/Music/positiveWay.mp3"
 import deer from "../assets/Music/deer.mp3"
 import plane from "../assets/Music/plane.mp3"
 import positiveWayCover from "../assets/Music/covers/positive-way.jpg"
+import Mariachi from "../assets/Music/Mariachi.mp3"
+import MariachiCover from "../assets/Music/covers/MariachiCover.jpg"
+import { useMap } from "../context/MapContext"
 library.add(faPlay, faPause, faForward, faBackward, faCircleXmark)
 
-export const Playlist = [
-	{
-		id: 1,
-		title: "Tiny Adventure",
-		artist: "RomanSenykMusic",
-		source: tinyAdventure,
-		cover: tinyAdventureCover,
-	},
-	{
-		id: 2,
-		title: "Sunshine",
-		artist: "lemonmusicstudio",
-		source: sunshine,
-		cover: sunshineCover,
-	},
-	{
-		id: 3,
-		title: "Positive Way",
-		artist: "Bensound",
-		source: positiveWay,
-		cover: positiveWayCover,
-	},
-]
+// export const Playlist = [
+// 	{
+// 		id: 1,
+// 		title: "Tiny Adventure",
+// 		artist: "RomanSenykMusic",
+// 		source: tinyAdventure,
+// 		cover: tinyAdventureCover,
+// 	},
+// 	{
+// 		id: 2,
+// 		title: "Sunshine",
+// 		artist: "lemonmusicstudio",
+// 		source: sunshine,
+// 		cover: sunshineCover,
+// 	},
+// 	{
+// 		id: 3,
+// 		title: "Positive Way",
+// 		artist: "Bensound",
+// 		source: positiveWay,
+// 		cover: positiveWayCover,
+// 	},
+// ]
 
-const SafariMusicPlayer = () => {
+// export const Playlist2 = [
+// 	{
+// 		id: 1,
+// 		title: "Mexican Huapango Banda",
+// 		artist: "JuliusH",
+// 		source: Mariachi,
+// 		cover: MariachiCover,
+// 	},
+// ]
+
+const playlists = {
+	Playlist: [
+		{
+			id: 1,
+			title: "Tiny Adventure",
+			artist: "RomanSenykMusic",
+			source: tinyAdventure,
+			cover: tinyAdventureCover,
+		},
+		{
+			id: 2,
+			title: "Sunshine",
+			artist: "lemonmusicstudio",
+			source: sunshine,
+			cover: sunshineCover,
+		},
+		{
+			id: 3,
+			title: "Positive Way",
+			artist: "Bensound",
+			source: positiveWay,
+			cover: positiveWayCover,
+		},
+	],
+	Playlist2: [
+		{
+			id: 1,
+			title: "Mexican Huapango Banda",
+			artist: "JuliusH",
+			source: Mariachi,
+			cover: MariachiCover,
+		},
+	],
+}
+
+const SafariMusicPlayer = ({ PlaylistSelection }) => {
 	const [isPlaying, setIsPlaying] = useState(false)
 	const [progress, setProgress] = useState(0)
 	const [trackNo, setTrackNo] = useState(0)
 	const [duration, setDuration] = useState(0)
 	const [controlsVisible, setControlsVisible] = useState(false)
 	const [key, setKey] = useState(1)
-	const audioRef = useRef(new Audio(Playlist[0].source))
+	// const audioRef = useRef(new Audio(Playlist[0].source))
+	const audioRef = useRef(new Audio())
 	const currentTime = audioRef.current.currentTime
+
+	const selectedPlaylist = playlists[PlaylistSelection]
+	console.log(PlaylistSelection)
 
 	const calculateTime = (secs) => {
 		const minutes = Math.floor(secs / 60)
@@ -62,6 +114,7 @@ const SafariMusicPlayer = () => {
 	}
 
 	useEffect(() => {
+		console.log(selectedPlaylist)
 		const audio = audioRef.current
 
 		const handleLoadedMetadata = () => {
@@ -80,7 +133,8 @@ const SafariMusicPlayer = () => {
 		const audio = audioRef.current
 
 		// Load the first song on initial mount
-		audio.src = Playlist[trackNo].source
+		// audio.src = Playlist[trackNo].source
+		audio.src = selectedPlaylist[trackNo].source
 
 		// Event listener to update progress while audio is playing
 		const updateProgress = () => {
@@ -95,7 +149,7 @@ const SafariMusicPlayer = () => {
 
 		// Event listener to switch to the next song when the current one ends
 		const switchSong = () => {
-			if (trackNo === Playlist.length - 1) {
+			if (trackNo === selectedPlaylist.length - 1) {
 				setTrackNo(0)
 			} else {
 				setTrackNo((prevTrackNo) => prevTrackNo + 1)
@@ -150,14 +204,14 @@ const SafariMusicPlayer = () => {
 			audioRef.current.currentTime = 0
 		} else if (trackNo == 0) {
 			console.log("back to the end of the mix")
-			setTrackNo(Playlist.length - 1) // Play the next song
+			setTrackNo(selectedPlaylist.length - 1) // Play the next song
 		} else {
 			console.log("back a song")
 			setTrackNo((prevTrackNo) => prevTrackNo - 1) // Play the next song
 		}
 	}
 	const playNextSong = () => {
-		if (trackNo === Playlist.length - 1) {
+		if (trackNo === selectedPlaylist.length - 1) {
 			setTrackNo(0) // Restart the playlist if the last song ends
 		} else {
 			setTrackNo((prevTrackNo) => prevTrackNo + 1) // Play the next song
@@ -205,12 +259,7 @@ const SafariMusicPlayer = () => {
 							<div
 								className={`${
 									controlsVisible ? "group-hover/mediaPlayer:opacity-100" : "opacity-0"
-								}  opacity-0 font-black text-black/60 transition-all duration-100 ease-in-out top-1 whitespace-nowrap flex`}>
-								{/* {currentTime.toFixed(0)} % */}
-								{duration.toFixed(0)}
-								{/* {calculateTime(currentTime)} <p className="-translate-y-1">/</p>
-								{calculateTime(duration)} */}
-							</div>
+								}  opacity-0 font-black text-black/60 transition-all duration-100 ease-in-out top-1 whitespace-nowrap flex`}></div>
 						</div>
 						<TbRewindForward30
 							onClick={forwardThirty}
@@ -225,15 +274,15 @@ const SafariMusicPlayer = () => {
 				<div className="flex-col mb-2 ml-2">
 					{!controlsVisible && (
 						<h1 className="text-sm text-white transition-all duration-150 ease-in delay-150 opacity-0 overflow-ellipsis group-hover/mediaPlayer:opacity-100 whitespace-nowrap">
-							{Playlist[trackNo].title}
+							{selectedPlaylist[trackNo].title}
 						</h1>
 					)}
 					{!controlsVisible && (
 						<p className="text-xs font-bold transition-all duration-150 ease-in delay-150 opacity-0 text-slate-400 overflow-ellipsis group-hover/mediaPlayer:opacity-100 whitespace-nowrap">
-							{Playlist[trackNo].artist}
+							{selectedPlaylist[trackNo].artist}
 						</p>
 					)}
-					<audio ref={audioRef} key={key} src={Playlist[trackNo].source} />
+					<audio ref={audioRef} key={key} src={selectedPlaylist[trackNo].source} />
 					<div className="absolute bottom-0 left-0 flex w-full h-1 bg-gray-500">
 						<div className="h-full bg-sky-500" style={{ width: `${progress}%` }}></div>
 						<div
@@ -248,7 +297,7 @@ const SafariMusicPlayer = () => {
 				</div>
 				{!controlsVisible && (
 					<div className="ml-auto mb-1 mr-[7px] p-0 overflow-hidden transition-all duration-150 ease-in delay-150 rounded-full opacity-0 w-9 h-9 album-art group-hover/mediaPlayer:opacity-100">
-						<img src={Playlist[trackNo].cover} alt="Album cover" className="aspect-square " />
+						<img src={selectedPlaylist[trackNo].cover} alt="Album cover" className="aspect-square " />
 					</div>
 				)}
 			</div>

@@ -6,28 +6,32 @@ import corgiRepeat from "../assets/Images/corgi-repeat.jpg"
 
 const Slide9 = () => {
 	return (
-		<VerticalSlide>
-			<Slide>
-				{/* get the background repeat working */}
-				<div className="flex flex-col-reverse items-center justify-center w-screen h-screen overflow-scroll align-top text-start md:flex md:flex-row ">
-					<div style={{ backgroundImage: corgiRepeat }} className="bg-repeat blur-sm" />
-					{/* <div className="absolute w-screen h-screen bg-white/70"></div> */}
-					<p className="z-10 flex w-auto px-8 m-auto text-3xl text-wrap text-start lg:text-5xl">
-						Then Tim played with Tuf. Tim gave Tuf a treat, then played more. George also gave Tuf a treat.
-						<br></br>
-						<br></br>
-						George asked "Why do you love dogs so much?" <br></br>
-						<br></br>Tim said "because they're cute and fluffy!"
+		<Slide>
+			{/* get the background repeat working */}
+			{/* <div
+				style={{
+					backgroundImage: `url(${corgiRepeat})`,
+					backgroundRepeat: "repeat",
+					backgroundSize: "200px 200px", // Set the size of the repeating block
+				}}
+				className="absolute flex flex-col-reverse items-center justify-center w-screen h-screen bg-repeat text-start md:flex md:flex-row blur-sm">
+				<div className="absolute w-screen h-screen bg-black/70"></div>
+			</div> */}
+			<div className="relative w-screen h-screen bg-blur-sm text-start md:flex md:flex-row">
+				<div className="absolute inset-0 flex items-end justify-end overflow-hidden">
+					{/* Use "inset-0" to position the image at the bottom right corner */}
+					<img src={TufPlay} className="object-cover min-h-screen min-w-screen" />
+				</div>
+				<div className="absolute w-screen  h-[60vh] bg-gradient-to-b from-black/60 to-black/0">
+					<p className="absolute z-10 flex w-full px-8 pt-10 pb-4 m-auto text-xl text-white h-fit text-wrap text-start lg:text-2xl">
+						Then Tim played with Tuf. Tim gave Tuf a treat, then played more. George also gave Tuf a treat. George asked "Why do
+						you love dogs so much?"
+						<br />
+						Tim said "because they're cute and fluffy!"
 					</p>
 				</div>
-			</Slide>
-			<Slide>
-				{/* Prevent horizontal stretching on all these full slide images */}
-				<div className="flex flex-col-reverse items-center justify-center w-screen h-screen overflow-scroll text-center align-top md:flex md:flex-row">
-					<img src={TufPlay} className="flex h-screen m-auto mx-auto align-middle " />
-				</div>
-			</Slide>
-		</VerticalSlide>
+			</div>
+		</Slide>
 	)
 }
 

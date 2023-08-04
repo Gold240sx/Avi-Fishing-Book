@@ -1,8 +1,20 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useMap } from "../context/MapContext"
 
 const VerticalSlide = ({ children }) => {
-	const { trueSlide, setTrueSlide, slide, vertScroll, setCurrentVerticalSlide } = useMap()
+	const [windowHeight, setWindowHeight] = useState(window.innerHeight)
+	const { trueSlide, setTrueSlide, slide, vertScroll, setCurrentVerticalSlide, currentVerticalSlide } = useMap()
+
+	const setSlideHeight = () => {
+		const slideElements = document.querySelectorAll(".Slide")
+		slideElements.forEach((slideElement) => {
+			slideElement.style.height = `${windowHeight}px`
+		})
+	}
+
+	const handleResize = () => {
+		setWindowHeight(window.innerHeight)
+	}
 
 	// console.log({ vertScroll })
 	const setSlideIds = () => {
@@ -82,13 +94,17 @@ const VerticalSlide = ({ children }) => {
 
 	useEffect(() => {
 		setSlideIds()
+		setSlideHeight()
 
 		// Add scroll event listener to handle scrolling changes
 		window.addEventListener("scroll", handleScroll)
+		window.addEventListener("resize", handleResize)
 		return () => {
 			window.removeEventListener("scroll", handleScroll)
+			window.removeEventListener("resize", handleResize)
 		}
-	}, [trueSlide, vertScroll])
+		window.addEventListener("resize", handleResize)
+	}, [trueSlide, vertScroll, currentVerticalSlide, windowHeight])
 
 	return <div className={`w-full VerticalSlide h-full`}>{children}</div>
 }

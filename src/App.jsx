@@ -34,15 +34,25 @@ function App() {
 		uiColor: "#42AEF8",
 		//  disabled slides cause controls: Either  50% opacity (50Percent) and gray or 0% opacity(hidden),
 		disabled: "hidden",
-		linearControls: false,
+		linearControls: true,
 		verticalSlides: true,
 		verticalScroll: true,
 		musicPlayer: true,
 	}
 
 	const { setVertScroll } = useMap()
-	const { pageCounter, progressBar, controller, uiColor, disabled, verticalSlides, musicPlayer, linearControls, verticalScroll } =
-		slideshowOptions
+	const {
+		pageCounter,
+		progressBar,
+		controller,
+		uiColor,
+		disabled,
+		verticalSlides,
+		musicPlayer,
+		trueSlide,
+		linearControls,
+		verticalScroll,
+	} = slideshowOptions
 
 	const translation = () => {
 		if (btnClicked === "load") {
@@ -58,6 +68,24 @@ function App() {
 		}
 	}
 
+	const handleResize = () => {
+		// Get the previous scroll position and previously visible slide index
+		const previousScrollPosition = window.scrollY
+		const previousVisibleSlideIndex = Math.floor(previousScrollPosition / (window.innerHeight * currentSlideCount))
+
+		// Get the new VerticalSlide height after the window resize
+		const newVerticalSlideHeight = window.innerHeight * currentSlideCount
+
+		// Calculate the relative position of the previously visible slide within the newly resized VerticalSlide
+		const relativePosition = previousScrollPosition / (previousVisibleSlideIndex * window.innerHeight)
+
+		// Calculate the new scroll position based on the relative position and the new VerticalSlide height
+		const newScrollPosition = relativePosition * newVerticalSlideHeight
+
+		// Set the new scroll position to keep the same content in view after the resize
+		window.scrollTo(0, newScrollPosition)
+	}
+
 	useEffect(() => {
 		setVertScroll(verticalScroll)
 
@@ -69,7 +97,26 @@ function App() {
 		}
 		const count = countSlidesWithSameFloatNumber(slide, map)
 		setCurrentSlideCount(count)
-	}, [slide, map])
+	}, [slide, map, verticalScroll])
+
+	useEffect(() => {
+		// Handle window resize event
+		// const handleResize = () => {
+		// 	const vSlideHeight = currentSlideCount * window.innerHeight + "px"
+		// 	const presContainer = document.querySelector(".pres-container")
+		// 	if (presContainer) {
+		// 		presContainer.style.height = vSlideHeight
+		// 	}
+		// }
+
+		// Attach the resize event listener
+		window.addEventListener("resize", handleResize)
+
+		// Cleanup: remove the resize event listener
+		return () => {
+			window.removeEventListener("resize", handleResize)
+		}
+	}, [currentSlideCount])
 
 	const BrowserName = () => {
 		let browserName = ""
@@ -140,7 +187,8 @@ function App() {
 					/>
 				)}
 				{/* {!BrowserName() && <MusicPlayer />} */}
-				<SafariMusicPlayer preloadType="auto" />
+				{console.log(slide)}
+				<SafariMusicPlayer preloadType="auto" PlaylistSelection={slide === 13 ? "Playlist2" : "Playlist"} />
 				{/* <TruePlayer timeJump={0} /> */}
 				{progressBar && (
 					<ProgressBar

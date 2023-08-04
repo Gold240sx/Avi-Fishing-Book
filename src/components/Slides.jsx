@@ -11,11 +11,13 @@ import Slide9 from "../slides/Slide9.jsx"
 import Slide10 from "../slides/Slide10.jsx"
 import Slide11 from "../slides/Slide11.jsx"
 import Credits from "../slides/Credits.jsx"
+import PostStory from "../slides/PostStory.jsx"
+import End from "../slides/End.jsx"
 
 import OptionsSlide from "../slides/OptionsSlide.jsx"
 
 const Slides = () => {
-	return [Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7, Slide8, Slide9, Slide10, Slide11, Credits]
+	return [Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7, Slide8, Slide9, Slide10, Slide11, Credits, PostStory, End]
 }
 
 export default Slides
