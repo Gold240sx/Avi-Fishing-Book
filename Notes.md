@@ -2,6 +2,7 @@
 1. Fix the initial animation of the slides. It should slide in, not fade in. 
 2. In Safari, the music Player isn't working. Scratch that, it works intermittantly.
 3.  duration, current time, progress states and progress bar changing as the bar changes
+4. Time-related components, begin loading on project-load, not on page load. Need to create a new component specifically to halt state until trueSlide == that slide.
 
 
 
@@ -9,12 +10,14 @@
 ### Controls
 1. Add up / down (tap per slide) hold for scroll.
 2. Realized that the Audioplayer controls wouldnt be accessible to cursor-less devices. Should add a way to control via touch. (Settings in the project options maybe and a popup-in-app modal to change on the fly.)
+3. Update control shema to incude documentation of vertical, Dissolve Slide. 
 
 ### Map
 1. Add a Map of the existing slides. Open Map on "M" keypress
 
 ### Music Player
 1. I want to create a way to tell the app that if the current slide includes any video, that the music player is hidden and pauses the music smoothly and opens up video controls
+2. Update the Music player to allow for multiple Playlists.
 
 ### Shopping Cart
 1. Add a minimizable shopping cart, with a list op products that can be added by the devs. Add a Store Setup backend for Clients to update their project and have a fully integrated store.
@@ -24,8 +27,19 @@
 
 ### Styling
 1. Add styling for things like code.
+2. Update Window Resizing EventListener.
+
+### Components
+1. Add <ParrallaxSlide />, <DissolveSlide /> and perameters on these slides to enforce user input. For instance, Requiring an input be valid before resuming to the next slide. 
+
+### Documentation
+1. Update, Parrallax  Slide, DissolveSlide and Input Slide documentation. See Notes2.md.
+
 
 # Updates
+## Beta Update (1.3 ... - MM)
+1. 
+
 ## Beta Update (1.2 08/02/23 - MM)
 1. Tons of work completed on the music player. Still having issues in Safari, but the music does play as a playlist. 
 2. Added back/forward/30sec +/- controls and a cool button. 
